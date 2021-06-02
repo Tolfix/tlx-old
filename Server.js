@@ -48,7 +48,6 @@ app.use(express.urlencoded({ extended: true }));
 
 //Routers goes here
 app.use("/r", require("./routes/Redirect"));
-app.use("/f", require("./routes/Files"));
 app.use("/api", require("./routes/API"));
 
 app.get("/", (req, res) => {

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Redirect = require("../models/Redirects");
 const crypto = require("crypto");
-const { GFS_find, GFS_findOne, GFS_DisplayImage, GFS_Remove } = require("../lib/GFS");
 
 router.post("/redirect", (req, res) => {
     let redirect = req.query.redirect;
@@ -52,28 +51,6 @@ router.post("/redirect", (req, res) => {
         res.status(400).json({
             status: 'error',
             msg: `Please include a URL to redirect`
-        });
-    }
-});
-
-router.get("/file", (req, res) => {
-    let file = req.query.file;
-    if(file)
-    {
-        GFS_DisplayImage(file).then(f => {
-            f.pipe(res);
-        }).catch(e => {
-            res.status(500).json({
-                status: 'error',
-                msg: `Something went wrong.. try again later.`
-            });
-        })
-    }
-    else
-    {
-        res.status(400).json({
-            status: 'error',
-            msg: `Please include a file name.`
         });
     }
 });
