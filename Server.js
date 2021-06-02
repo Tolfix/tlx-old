@@ -3,7 +3,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const log = require("./lib/Loggers");
@@ -32,11 +31,11 @@ app.use(function (req, res, next) {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.video = req.flash('video');
+
+    res.setHeader('X-Powered-By', 'Tolfix');
     next();
 });
 
-// EJS
-//app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
