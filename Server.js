@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const log = require("./lib/Loggers");
 const flash = require('connect-flash');
 const session = require('express-session');
+const cors = require("cors");
 
 const app = express();
 
@@ -25,6 +26,10 @@ app.use(
     })
 );
 app.use(flash());
+
+app.use(cors({
+    origin: "*",
+}));
 
 app.use(function (req, res, next) {
     res.locals.success_msg = req.flash('success_msg');
@@ -53,7 +58,7 @@ app.get("/", (req, res) => {
     res.render("main");
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, log.verbos(`Server started on port ${PORT}`));
 
