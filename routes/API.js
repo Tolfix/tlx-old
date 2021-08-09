@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Redirect = require("../models/Redirects");
+const Redirects = require("../Cache");
 const crypto = require("crypto");
 
 router.post("/redirect", (req, res) => {
@@ -20,6 +21,9 @@ router.post("/redirect", (req, res) => {
                 };
         
                 const id = buf.toString('hex');
+                Redirects.set(id, {
+                    redirect: redirect
+                })
                 new Redirect({
                     id: id,
                     redirect: redirect
