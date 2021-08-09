@@ -19,6 +19,9 @@ router.get("/", async (req, res) => {
         if(!r)
             return res.render("redirect/fail-redirect");
         
+        Redirects.set(id, {
+            redirect: r.redirect
+        });
         return res.status(301).redirect(r.redirect);
     }).catch(e => {
             return res.render("redirect/fail-redirect");
